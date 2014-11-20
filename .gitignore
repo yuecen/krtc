@@ -1,2 +1,4 @@
 *.pdf
-venv/
+*.json
+venv
+data

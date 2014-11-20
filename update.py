@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import argparse
+import json
 import urllib
 import re
 import sys
@@ -70,6 +71,26 @@ def data_extraction(filename):
     return data_cols
 
 
+def save_json(table_data, file_name):
+    day = table_data['day'][1:]
+    mon_to_sun = table_data['mon_to_sun'][1:]
+    red_line_people = table_data['red_line_people'][1:]
+    orange_line_people = table_data['orange_line_people'][1:]
+    total_people = table_data['total_people'][1:]
+
+    data = []
+    try:
+        for i, d in enumerate(day):
+            data.append({'day': day[i], 'mon_to_sun': mon_to_sun[i], 'red_line_people': red_line_people[i],
+                         'orange_line_people': orange_line_people[i], 'total_people': total_people[i]})
+            # for testing
+            # print day[i], mon_to_sun[i], red_line_people[i], orange_line_people[i], total_people[i]
+    except IndexError:
+        pass
+    with open(file_name + '.json', 'w') as json_file:
+        json.dump(data, json_file, indent=4, ensure_ascii=False)
+    json_file.close()
+
 
 def run():
     parser = argparse.ArgumentParser(description='Print argument')
@@ -77,12 +98,11 @@ def run():
     parser.add_argument("-l", "--url", help="set url of PDF")
     args = parser.parse_args()
     global proxy, url
-    proxy = args.proxy
-    url = args.url
+    proxy, url = args.proxy, args.url
 
     filename = file_name(url)
     download_file(url, filename)
-    d = data_extraction(filename)
+    save_json(data_extraction(filename), filename)
 
 
 if __name__ == '__main__':
