@@ -48,10 +48,6 @@ def data_extraction(filename):
 
     data_cols = {}
     day, mon_to_sun, red_line_people, orange_line_people, total_people = [], [], [], [], []
-    #   
-    # doc.get_pages() page  
-    # ?page  
-    # layoutLTPage  page LTTextBox, LTFigure, LTImage, LTTextBoxHorizontal  text? 
     for i, page in enumerate(doc.get_pages()):  
         interpreter.process_page(page)  
         layout = device.get_result()  
@@ -64,11 +60,11 @@ def data_extraction(filename):
                 if first_value == '星期':
                     mon_to_sun = x.split('\n')
                 if first_value == '紅線運量(人次)':
-                    red_line_people = x.split('\n')
+                    red_line_people = [v.strip() for v in x.replace(',','').split('\n')]
                 if first_value == '橘線運量(人次)':
-                    orange_line_people = x.split('\n')
+                    orange_line_people = [v.strip() for v in x.replace(',','').split('\n')]
                 if first_value == '總運量(人次)':
-                    total_people = x.split('\n')
+                    total_people = [v.strip() for v in x.replace(',','').split('\n')]
     data_cols = {'day': day, 'mon_to_sun': mon_to_sun, 'red_line_people': red_line_people, 
                  'orange_line_people': orange_line_people, 'total_people': total_people}
     return data_cols
