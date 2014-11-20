@@ -1,4 +1,6 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+import argparse
 import urllib
 import re
 import sys
@@ -6,8 +8,8 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-url = 'https://www.krtco.com.tw/manage/G05Download/upFiles/20131816628.pdf'
-proxies = {'https': 'http://ip:3128'}
+url = ''
+proxy = ''
 
 def file_name(saved_url):
     file_name = re.match(r'(?i).*/(.*)\.pdf$', saved_url)
@@ -16,7 +18,8 @@ def file_name(saved_url):
 
 
 def download_file(download_url, file_name):
-    web_file = urllib.urlopen(download_url, proxies=proxies)
+    global proxy
+    web_file = urllib.urlopen(download_url, proxies={'https': proxy})
     local_file = open(file_name + '.pdf', 'wb')
     local_file.write(web_file.read())
     web_file.close()
@@ -71,6 +74,20 @@ def data_extraction(filename):
     return data_cols
 
 
-filename = file_name(url)
-download_file(url, filename)
-d = data_extraction(filename)
+
+def run():
+    parser = argparse.ArgumentParser(description='Print argument')
+    parser.add_argument("-p", "--proxy", help="set proxy")
+    parser.add_argument("-l", "--url", help="set url of PDF")
+    args = parser.parse_args()
+    global proxy, url
+    proxy = args.proxy
+    url = args.url
+
+    filename = file_name(url)
+    download_file(url, filename)
+    d = data_extraction(filename)
+
+
+if __name__ == '__main__':
+    run()
