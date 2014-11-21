@@ -39,7 +39,7 @@ def data_extraction(filename):
     doc.set_parser(parser)
     doc.initialize()
 
-    if not doc.is_extractable:  
+    if not doc.is_extractable:
         raise PDFTextExtractionNotAllowed
 
     rsrcmgr = PDFResourceManager()
@@ -49,9 +49,9 @@ def data_extraction(filename):
 
     data_cols = {}
     day, mon_to_sun, red_line_people, orange_line_people, total_people = [], [], [], [], []
-    for i, page in enumerate(doc.get_pages()):  
-        interpreter.process_page(page)  
-        layout = device.get_result()  
+    for i, page in enumerate(doc.get_pages()):
+        interpreter.process_page(page)
+        layout = device.get_result()
         for x in layout:
             if type(x) == LTTextBoxHorizontal:
                 x = re.sub(r'\n\s*\n', '\n' , x.get_text()).strip()
@@ -66,8 +66,11 @@ def data_extraction(filename):
                     orange_line_people = [v.strip() for v in x.replace(',','').split('\n')]
                 if first_value == '總運量(人次)':
                     total_people = [v.strip() for v in x.replace(',','').split('\n')]
-    data_cols = {'day': day, 'mon_to_sun': mon_to_sun, 'red_line_people': red_line_people, 
-                 'orange_line_people': orange_line_people, 'total_people': total_people}
+    data_cols = {'day': day,
+                 'mon_to_sun': mon_to_sun,
+                 'red_line_people': red_line_people,
+                 'orange_line_people': orange_line_people,
+                 'total_people': total_people}
     return data_cols
 
 
@@ -81,10 +84,14 @@ def save_json(table_data, file_name):
     data = []
     try:
         for i, d in enumerate(day):
-            data.append({'day': day[i], 'mon_to_sun': mon_to_sun[i], 'red_line_people': red_line_people[i],
-                         'orange_line_people': orange_line_people[i], 'total_people': total_people[i]})
+            data.append({'day': day[i],
+                         'mon_to_sun': mon_to_sun[i],
+                         'red_line_people': red_line_people[i],
+                         'orange_line_people': orange_line_people[i],
+                         'total_people': total_people[i]})
             # for testing
-            # print day[i], mon_to_sun[i], red_line_people[i], orange_line_people[i], total_people[i]
+            # print day[i], mon_to_sun[i], red_line_people[i],
+            #   orange_line_people[i], total_people[i]
     except IndexError:
         pass
     with open(file_name + '.json', 'w') as json_file:
