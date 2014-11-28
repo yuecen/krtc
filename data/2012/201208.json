@@ -1,0 +1,219 @@
+[
+    {
+        "orange_line_people": "34708", 
+        "total_people": "135653", 
+        "red_line_people": "100945", 
+        "day": "2012/8/1", 
+        "mon_to_sun": "星期三"
+    }, 
+    {
+        "orange_line_people": "16122", 
+        "total_people": "67085", 
+        "red_line_people": "50963", 
+        "day": "2012/8/2", 
+        "mon_to_sun": "星期四"
+    }, 
+    {
+        "orange_line_people": "40799", 
+        "total_people": "170027", 
+        "red_line_people": "129228", 
+        "day": "2012/8/3", 
+        "mon_to_sun": "星期五"
+    }, 
+    {
+        "orange_line_people": "42882", 
+        "total_people": "177692", 
+        "red_line_people": "134810", 
+        "day": "2012/8/4", 
+        "mon_to_sun": "星期六"
+    }, 
+    {
+        "orange_line_people": "42519", 
+        "total_people": "179779", 
+        "red_line_people": "137260", 
+        "day": "2012/8/5", 
+        "mon_to_sun": "星期日"
+    }, 
+    {
+        "orange_line_people": "39141", 
+        "total_people": "155804", 
+        "red_line_people": "116663", 
+        "day": "2012/8/6", 
+        "mon_to_sun": "星期一"
+    }, 
+    {
+        "orange_line_people": "36046", 
+        "total_people": "144298", 
+        "red_line_people": "108252", 
+        "day": "2012/8/7", 
+        "mon_to_sun": "星期二"
+    }, 
+    {
+        "orange_line_people": "38739", 
+        "total_people": "150901", 
+        "red_line_people": "112162", 
+        "day": "2012/8/8", 
+        "mon_to_sun": "星期三"
+    }, 
+    {
+        "orange_line_people": "38377", 
+        "total_people": "153282", 
+        "red_line_people": "114905", 
+        "day": "2012/8/9", 
+        "mon_to_sun": "星期四"
+    }, 
+    {
+        "orange_line_people": "44374", 
+        "total_people": "184930", 
+        "red_line_people": "140556", 
+        "day": "2012/8/10", 
+        "mon_to_sun": "星期五"
+    }, 
+    {
+        "orange_line_people": "48081", 
+        "total_people": "197439", 
+        "red_line_people": "149358", 
+        "day": "2012/8/11", 
+        "mon_to_sun": "星期六"
+    }, 
+    {
+        "orange_line_people": "42931", 
+        "total_people": "184953", 
+        "red_line_people": "142022", 
+        "day": "2012/8/12", 
+        "mon_to_sun": "星期日"
+    }, 
+    {
+        "orange_line_people": "40650", 
+        "total_people": "160829", 
+        "red_line_people": "120179", 
+        "day": "2012/8/13", 
+        "mon_to_sun": "星期一"
+    }, 
+    {
+        "orange_line_people": "40978", 
+        "total_people": "165450", 
+        "red_line_people": "124472", 
+        "day": "2012/8/14", 
+        "mon_to_sun": "星期二"
+    }, 
+    {
+        "orange_line_people": "40059", 
+        "total_people": "159482", 
+        "red_line_people": "119423", 
+        "day": "2012/8/15", 
+        "mon_to_sun": "星期三"
+    }, 
+    {
+        "orange_line_people": "36962", 
+        "total_people": "152087", 
+        "red_line_people": "115125", 
+        "day": "2012/8/16", 
+        "mon_to_sun": "星期四"
+    }, 
+    {
+        "orange_line_people": "41957", 
+        "total_people": "176735", 
+        "red_line_people": "134778", 
+        "day": "2012/8/17", 
+        "mon_to_sun": "星期五"
+    }, 
+    {
+        "orange_line_people": "47089", 
+        "total_people": "207443", 
+        "red_line_people": "160354", 
+        "day": "2012/8/18", 
+        "mon_to_sun": "星期六"
+    }, 
+    {
+        "orange_line_people": "44954", 
+        "total_people": "204166", 
+        "red_line_people": "159212", 
+        "day": "2012/8/19", 
+        "mon_to_sun": "星期日"
+    }, 
+    {
+        "orange_line_people": "40480", 
+        "total_people": "163821", 
+        "red_line_people": "123341", 
+        "day": "2012/8/20", 
+        "mon_to_sun": "星期一"
+    }, 
+    {
+        "orange_line_people": "39781", 
+        "total_people": "162774", 
+        "red_line_people": "122993", 
+        "day": "2012/8/21", 
+        "mon_to_sun": "星期二"
+    }, 
+    {
+        "orange_line_people": "38093", 
+        "total_people": "151607", 
+        "red_line_people": "113514", 
+        "day": "2012/8/22", 
+        "mon_to_sun": "星期三"
+    }, 
+    {
+        "orange_line_people": "33191", 
+        "total_people": "135500", 
+        "red_line_people": "102309", 
+        "day": "2012/8/23", 
+        "mon_to_sun": "星期四"
+    }, 
+    {
+        "orange_line_people": "14605", 
+        "total_people": "66137", 
+        "red_line_people": "51532", 
+        "day": "2012/8/24", 
+        "mon_to_sun": "星期五"
+    }, 
+    {
+        "orange_line_people": "32086", 
+        "total_people": "134696", 
+        "red_line_people": "102610", 
+        "day": "2012/8/25", 
+        "mon_to_sun": "星期六"
+    }, 
+    {
+        "orange_line_people": "35885", 
+        "total_people": "155700", 
+        "red_line_people": "119815", 
+        "day": "2012/8/26", 
+        "mon_to_sun": "星期日"
+    }, 
+    {
+        "orange_line_people": "36497", 
+        "total_people": "149795", 
+        "red_line_people": "113298", 
+        "day": "2012/8/27", 
+        "mon_to_sun": "星期一"
+    }, 
+    {
+        "orange_line_people": "32474", 
+        "total_people": "129068", 
+        "red_line_people": "96594", 
+        "day": "2012/8/28", 
+        "mon_to_sun": "星期二"
+    }, 
+    {
+        "orange_line_people": "38514", 
+        "total_people": "150614", 
+        "red_line_people": "112100", 
+        "day": "2012/8/29", 
+        "mon_to_sun": "星期三"
+    }, 
+    {
+        "orange_line_people": "34556", 
+        "total_people": "143202", 
+        "red_line_people": "108646", 
+        "day": "2012/8/30", 
+        "mon_to_sun": "星期四"
+    }, 
+    {
+        "orange_line_people": "35681", 
+        "total_people": "152909", 
+        "red_line_people": "117228", 
+        "day": "2012/8/31", 
+        "mon_to_sun": "星期五"
+    }
+]
