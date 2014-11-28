@@ -1,5 +1,4 @@
 *.pdf
 *.json
 venv
-data
 .ropeproject

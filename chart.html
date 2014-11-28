@@ -1,23 +1,5 @@
-<div id="chart"></div>
-<script>
-     var chart = c3.generate({
-                  data: {
-                     x: 'x',
-                 //        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
-                     columns: [
-                           ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
-                           ['data1', 30, 200, 100, 400, 150, 250],
-                           ['data2', 130, 340, 200, 500, 250, 350]
-                        ]
-                   },
-                  axis: {
-                      x: {
-                                type: 'timeseries',
-                                tick: {
-                                             format: '%d'
-                                      }
-                         }
-                  }
-        });
- 
-</script>
+
+<div id="chart1">紅橘線總平均人數</div>
+<div id="chart2">紅線平均人數</div>
+
+{{jsondata}}
