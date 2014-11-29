@@ -27,11 +27,14 @@ myapp.controller('ListCtrl', function ($scope) {
 });
 
 myapp.controller('dataCtrl', function ($scope, $q, $http) {
-    
+
+
     $scope.getjsondata = function() {
         return $scope.jsondata;
     };
 
+    //var get_json_data = $q.defer();
+    //var draw_chart = $q.defer();
 
     title = ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06',
              '2013-01-07', '2013-01-08', '2013-01-09', '2013-01-10', '2013-01-11', '2013-01-12'];
@@ -39,53 +42,38 @@ myapp.controller('dataCtrl', function ($scope, $q, $http) {
     chart_data_red = [title];
     chart_data_orange = [title];
 
-    var deferred = $q.defer();
-    deferred.promise.then(function(){
-    years = ['2014', '2013', '2012'];
     
-    var deferred = $q.defer();
-    for(key in years) {
-      console.log(key);
-      (function(key) {
-        console.log(years[key]);
-
-        $http.get('/data/' + years[key] + '/average.json').success(function (data) {
-          //$scope.jsondata = data;
-          tmp_total = [years[key]];
-          tmp_red = [years[key]];
-          tmp_orange = [years[key]];
-
-          for(data_key in data) {
-            tmp_d = data[data_key];
-            for(k in tmp_d) {
-              if(k == 'a_total_people')
-                tmp_total.push(tmp_d[k]);
-              if(k == 'a_red_line_people')
-                tmp_red.push(tmp_d[k]);
-              if(k == 'a_orange_line_people')
-                tmp_orange.push(tmp_d[k]);
-            }
-          }
-          chart_data_total.push(tmp_total);
-          chart_data_red.push(tmp_red);
-          chart_data_orange.push(tmp_orange);
-          console.log(chart_data_total[key]);
-        });
-        //console.log(chart_data_total[key]);
-      })(key);
-      
-    }
-      
-    return deferred.promise;
-    })
     
-    .then(function(){
-      console.log('5566');
-      var chart1 = c3.generate({
-                      bindto: '#chart1',
+var year2012 = $http.get('/data/' + '2012' + '/average.json'),
+    year2013 = $http.get('/data/' + '2013' + '/average.json'),
+    year2014 = $http.get('/data/' + '2014' + '/average.json');
+
+    $q.all([year2012, year2013, year2014]).then(function(result) {
+      angular.forEach(result, function(response) {
+
+        tmp = response.data;
+        tmp_total = [tmp[0]['year']];
+        tmp_red = [tmp[0]['year']];
+        tmp_orange = [tmp[0]['year']];
+
+        for(k in tmp) {
+          tmp_total.push(tmp[k]['a_total_people']);
+          tmp_red.push(tmp[k]['a_red_line_people']);
+          tmp_orange.push(tmp[k]['a_orange_line_people']);
+        }
+        chart_data_total.push(tmp_total);
+        chart_data_red.push(tmp_red);
+        chart_data_orange.push(tmp_orange);
+      });
+
+      console.log(chart_data_total);
+      return [chart_data_total, chart_data_red, chart_data_orange];
+    }).then(function draw_chart(tmp_data){
+      var chart_total = c3.generate({
+                      bindto: '#chart_total',
                       data: {
                             x: 'x',
-                        columns: chart_data_total
+                        columns: tmp_data[0]
                       },
                       axis: {
                         x: {
@@ -96,30 +84,38 @@ myapp.controller('dataCtrl', function ($scope, $q, $http) {
                         }
                       }
                   });
-    });
 
-    deferred.resolve("sword");
-
-
-     var chart2 = c3.generate({
-                         bindto: '#chart2',
-                         data: {
-                           x: 'x',
-                           columns: [
-                             ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06',
-                                   '2013-01-07', '2013-01-08', '2013-01-09', '2013-01-10', '2013-01-11', '2013-01-12'
-                             ],
-                             ['2014', 30, 200, 100, 400, 150, 250],
-                             ['2013', 130, 340, 200, 500, 250, 350, 3333]
-                           ]
-                         },
-                         axis: {
-                             x: {
-                                type: 'timeseries',
-                                tick: {
-                                  format: '%d'
-                                }
-                             }
+      var chart_red = c3.generate({
+                      bindto: '#chart_red',
+                      data: {
+                            x: 'x',
+                        columns: tmp_data[1]
+                      },
+                      axis: {
+                        x: {
+                          type: 'timeseries',
+                          tick: {
+                            format: '%d'
+                          }
                         }
+                      }
+                  });
+      var chart_orange = c3.generate({
+                      bindto: '#chart_orange',
+                      data: {
+                            x: 'x',
+                        columns: tmp_data[2]
+                      },
+                      axis: {
+                        x: {
+                          type: 'timeseries',
+                          tick: {
+                            format: '%d'
+                          }
+                        }
+                      }
+                  });
+      
     });
+
 });

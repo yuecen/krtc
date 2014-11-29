@@ -1,3 +1,4 @@
 *.pdf
 venv
 .ropeproject
+.DS_Store
