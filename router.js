@@ -28,27 +28,23 @@ myapp.controller('ListCtrl', function ($scope) {
 
 myapp.controller('dataCtrl', function ($scope, $q, $http) {
 
-
     $scope.getjsondata = function() {
         return $scope.jsondata;
     };
 
-    //var get_json_data = $q.defer();
-    //var draw_chart = $q.defer();
-
-    title = ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06',
-             '2013-01-07', '2013-01-08', '2013-01-09', '2013-01-10', '2013-01-11', '2013-01-12'];
+    title = ['x', '0-0-01', '0-0-02', '0-0-03', '0-0-04', '0-0-05', '0-0-06',
+             '0-0-07', '0-0-08', '0-0-09', '0-0-10', '0-0-11', '0-0-12'];
     chart_data_total = [title];
     chart_data_red = [title];
     chart_data_orange = [title];
-
     
-    
-var year2012 = $http.get('./data/2012/average.json'),
+    year2011 = $http.get('./data/2011/average.json'),
+    year2012 = $http.get('./data/2012/average.json'),
     year2013 = $http.get('./data/2013/average.json'),
     year2014 = $http.get('./data/2014/average.json');
 
-    $q.all([year2012, year2013, year2014]).then(function(result) {
+
+    $q.all([year2011, year2012, year2013, year2014]).then(function(result) {
       angular.forEach(result, function(response) {
 
         tmp = response.data;
@@ -66,7 +62,6 @@ var year2012 = $http.get('./data/2012/average.json'),
         chart_data_orange.push(tmp_orange);
       });
 
-      console.log(chart_data_total);
       return [chart_data_total, chart_data_red, chart_data_orange];
     }).then(function draw_chart(tmp_data){
       var chart_total = c3.generate({
@@ -83,8 +78,20 @@ var year2012 = $http.get('./data/2012/average.json'),
                           }
                         }
                       }
-                  });
 
+                  });
+      setTimeout(function () {
+          chart_total.xgrids([{value: '0-0-02', text:'年假'}]);
+      }, 2000);
+      setTimeout(function () {
+          chart_total.xgrids([{value: '0-0-08', text:'2014 高雄氣爆'}]);
+      }, 6000);
+      setTimeout(function () {
+          chart_total.xgrids.remove([{value: '0-0-02'}]);
+      }, 5000);
+      setTimeout(function () {
+          chart_total.xgrids.remove();
+      }, 10000);
       var chart_red = c3.generate({
                       bindto: '#chart_red',
                       data: {

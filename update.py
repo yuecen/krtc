@@ -20,7 +20,10 @@ def file_name(saved_url):
 
 def download_file(download_url, file_name):
     global proxy
-    web_file = urllib.urlopen(download_url, proxies={'https': proxy})
+    if proxy:
+        web_file = urllib.urlopen(download_url, proxies={'https': proxy})
+    else:
+        web_file = urllib.urlopen(download_url)
     local_file = open(file_name + '.pdf', 'wb')
     local_file.write(web_file.read())
     web_file.close()
