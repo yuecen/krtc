@@ -44,9 +44,9 @@ myapp.controller('dataCtrl', function ($scope, $q, $http) {
 
     
     
-var year2012 = $http.get('/data/' + '2012' + '/average.json'),
-    year2013 = $http.get('/data/' + '2013' + '/average.json'),
-    year2014 = $http.get('/data/' + '2014' + '/average.json');
+var year2012 = $http.get('./data/2012/average.json'),
+    year2013 = $http.get('./data/2013/average.json'),
+    year2014 = $http.get('./data/2014/average.json');
 
     $q.all([year2012, year2013, year2014]).then(function(result) {
       angular.forEach(result, function(response) {
