@@ -103,16 +103,26 @@ def save_json(table_data, file_name):
 
 
 def run():
-    parser = argparse.ArgumentParser(description='Print argument')
+    parser = argparse.ArgumentParser(description='Print arguments')
     parser.add_argument("-p", "--proxy", help="set proxy")
     parser.add_argument("-l", "--url", help="set url of PDF")
+    parser.add_argument("-n", "--name", help="set the file name")
+    parser.add_argument("-s", "--pdfs", nargs='+', help="set a list of URLs of PDF")
+    parser.add_argument("-N", "--names", nargs='+', help="set names for the list of PDF")
     args = parser.parse_args()
-    global proxy, url
-    proxy, url = args.proxy, args.url
+    global proxy, url, filename, pdfs, filenames
+    proxy, url, filename, pdfs, filenames = args.proxy, args.url, args.name, args.pdfs, args.names
 
-    filename = file_name(url)
-    download_file(url, filename)
-    save_json(data_extraction(filename), filename)
+    if pdfs:
+        assert filenames != None, 'files names can be found.'
+        for i, pdf_url in enumerate(pdfs):
+            download_file(pdf_url, filenames[i])
+            save_json(data_extraction(filenames[i]), filenames[i])
+    else:
+        if filename is None:
+            filename = file_name(url)
+        download_file(url, filename)
+        save_json(data_extraction(filename), filename)
 
 
 if __name__ == '__main__':
