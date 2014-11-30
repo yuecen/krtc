@@ -38,13 +38,14 @@ myapp.controller('dataCtrl', function ($scope, $q, $http) {
     chart_data_red = [title];
     chart_data_orange = [title];
     
+    year2010 = $http.get('./data/2010/average.json'),
     year2011 = $http.get('./data/2011/average.json'),
     year2012 = $http.get('./data/2012/average.json'),
     year2013 = $http.get('./data/2013/average.json'),
     year2014 = $http.get('./data/2014/average.json');
 
 
-    $q.all([year2011, year2012, year2013, year2014]).then(function(result) {
+    $q.all([year2010, year2011, year2012, year2013, year2014]).then(function(result) {
       angular.forEach(result, function(response) {
 
         tmp = response.data;
