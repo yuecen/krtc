@@ -58,22 +58,28 @@ def data_extraction(filename):
         for x in layout:
             if type(x) == LTTextBoxHorizontal:
                 x = re.sub(r'\n\s*\n', '\n' , x.get_text()).strip()
-                first_value = str(x.split('\n')[0])
+                first_value = str(x.split('\n')[0]).strip()
                 if first_value == '營運日':
                     day = x.split('\n')
+                    # print '營運日', day
                 if first_value == '星期':
                     mon_to_sun = x.split('\n')
+                    # print '星期', mon_to_sun
                 if first_value == '紅線運量(人次)':
                     red_line_people = [v.strip() for v in x.replace(',','').split('\n')]
+                    # print '紅線運量(人次)', red_line_people
                 if first_value == '橘線運量(人次)':
                     orange_line_people = [v.strip() for v in x.replace(',','').split('\n')]
+                    # print '橘線運量(人次)', orange_line_people
                 if first_value == '總運量(人次)':
                     total_people = [v.strip() for v in x.replace(',','').split('\n')]
+                    # print '總運量(人次)', total_people
     data_cols = {'day': day,
                  'mon_to_sun': mon_to_sun,
                  'red_line_people': red_line_people,
                  'orange_line_people': orange_line_people,
                  'total_people': total_people}
+
     return data_cols
 
 
@@ -95,8 +101,8 @@ def save_json(table_data, file_name):
             # for testing
             # print day[i], mon_to_sun[i], red_line_people[i],
             #   orange_line_people[i], total_people[i]
-    except IndexError:
-        pass
+    except Exception as e:
+        print e
     with open(file_name + '.json', 'w') as json_file:
         json.dump(data, json_file, indent=4, ensure_ascii=False)
     json_file.close()

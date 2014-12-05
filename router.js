@@ -10,9 +10,13 @@ myapp.config(function ($routeProvider) {
       controller:'ListCtrl',
       templateUrl:'news.html'
     })
-    .when('/chart', {
-      controller:'dataCtrl',
-      templateUrl:'chart.html'
+    .when('/month', {
+      controller:'month_ctrl',
+      templateUrl:'month.html'
+    })
+    .when('/day', {
+      controller:'day_ctrl',
+      templateUrl:'day.html'
     })
     .when('/map', {
       controller:'ListCtrl',
@@ -26,7 +30,7 @@ myapp.config(function ($routeProvider) {
 myapp.controller('ListCtrl', function ($scope) {
 });
 
-myapp.controller('dataCtrl', function ($scope, $q, $http) {
+myapp.controller('month_ctrl', function ($scope, $q, $http) {
 
     $scope.getjsondata = function() {
         return $scope.jsondata;
@@ -126,4 +130,26 @@ myapp.controller('dataCtrl', function ($scope, $q, $http) {
       
     });
 
+});
+
+myapp.controller('day_ctrl', function ($scope, $q, $http) {
+  var cal = new CalHeatMap();
+  cal.init({
+    itemSelector: "#domain-a",
+    start: new Date(2014, 0),
+    domain: "month",
+    // domain: "day",
+    subDomain: "day",
+    // rowLimit: 7,
+    cellSize: 30,
+    // subDomainTextFormat: "%d",
+    range: 1,
+    weekStartOnMonday: true,
+    // domainGutter: 10,
+    cellpadding: 4,
+    displayLegend: false,
+    // verticalOrientation: true
+    nextSelector: "#domain-previous",
+    previousSelector: "#domain-next"
+  });
 });
