@@ -132,16 +132,55 @@ myapp.controller('month_ctrl', function ($scope, $q, $http) {
 
 });
 
-myapp.controller('day_ctrl', function ($scope, $q, $http) {
-  var cal = new CalHeatMap();
+myapp.controller('day_ctrl', function ($scope, $timeout, $window) {
+  var timeout;
+  $scope.$watch
+    (function () {
+        w = angular.element($window)
+        console.log(w.width());
+        w.bind('resize', function(){
+          if(timeout)$timeout.cancel(timeout);
+          timeout = $timeout(function(){
+            console.log('resize')
+            cal.destroy();
+            w = angular.element($window).width() / 73;
+            cal = new CalHeatMap();
+            cal.init({
+              itemSelector: "#daymap",
+              start: new Date(2014, 0),
+              domain: "year",
+              // domain: "day",
+              subDomain: "day",
+              // rowLimit: 7,
+              cellSize: w,
+              // subDomainTextFormat: "%d",
+              range: 1,
+              weekStartOnMonday: true,
+              // domainGutter: 10,
+              cellpadding: 4,
+              displayLegend: false,
+              // verticalOrientation: true
+              legendHorizontalPosition: "center",
+              nextSelector: "#domain-next",
+              previousSelector: "#domain-previous"
+            });
+
+          },900)
+          
+        });
+    });
+
+  w = angular.element($window).width() / 73;
+  
+  cal = new CalHeatMap();
   cal.init({
-    itemSelector: "#domain-a",
+    itemSelector: "#daymap",
     start: new Date(2014, 0),
-    domain: "month",
+    domain: "year",
     // domain: "day",
     subDomain: "day",
     // rowLimit: 7,
-    cellSize: 30,
+    cellSize: w,
     // subDomainTextFormat: "%d",
     range: 1,
     weekStartOnMonday: true,
@@ -149,7 +188,8 @@ myapp.controller('day_ctrl', function ($scope, $q, $http) {
     cellpadding: 4,
     displayLegend: false,
     // verticalOrientation: true
-    nextSelector: "#domain-previous",
-    previousSelector: "#domain-next"
+    legendHorizontalPosition: "center",
+    nextSelector: "#domain-next",
+    previousSelector: "#domain-previous"
   });
 });
