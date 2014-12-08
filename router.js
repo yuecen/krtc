@@ -36,8 +36,8 @@ myapp.controller('month_ctrl', function ($scope, $q, $http) {
         return $scope.jsondata;
     };
 
-    title = ['x', '0-0-01', '0-0-02', '0-0-03', '0-0-04', '0-0-05', '0-0-06',
-             '0-0-07', '0-0-08', '0-0-09', '0-0-10', '0-0-11', '0-0-12'];
+    title = ['x', '01', '02', '03', '04', '05', '06',
+             '07', '08', '09', '10', '11', '12'];
     chart_data_total = [title];
     chart_data_red = [title];
     chart_data_orange = [title];
@@ -70,63 +70,39 @@ myapp.controller('month_ctrl', function ($scope, $q, $http) {
       return [chart_data_total, chart_data_red, chart_data_orange];
     }).then(function draw_chart(tmp_data){
       var chart_total = c3.generate({
-                      bindto: '#chart_total',
-                      data: {
+                          bindto: '#chart_total',
+                          data: {
                             x: 'x',
-                        columns: tmp_data[0]
-                      },
-                      axis: {
-                        x: {
-                          type: 'timeseries',
-                          tick: {
-                            format: '%d'
+                            columns: tmp_data[0]
                           }
-                        }
-                      }
-
-                  });
+                        });
       setTimeout(function () {
-          chart_total.xgrids([{value: '0-0-02', text:'年假'}]);
+          chart_total.xgrids([{value: '02', text:'年假'}]);
       }, 2000);
       setTimeout(function () {
-          chart_total.xgrids([{value: '0-0-08', text:'2014 高雄氣爆'}]);
+          chart_total.xgrids([{value: '08', text:'2014 高雄氣爆'}]);
       }, 6000);
       setTimeout(function () {
-          chart_total.xgrids.remove([{value: '0-0-02'}]);
+          chart_total.xgrids.remove([{value: '02'}]);
       }, 5000);
       setTimeout(function () {
           chart_total.xgrids.remove();
       }, 10000);
+
       var chart_red = c3.generate({
-                      bindto: '#chart_red',
-                      data: {
-                            x: 'x',
-                        columns: tmp_data[1]
-                      },
-                      axis: {
-                        x: {
-                          type: 'timeseries',
-                          tick: {
-                            format: '%d'
-                          }
+                        bindto: '#chart_red',
+                        data: {
+                          x: 'x',
+                          columns: tmp_data[1]
                         }
-                      }
-                  });
+                      });
       var chart_orange = c3.generate({
-                      bindto: '#chart_orange',
-                      data: {
-                            x: 'x',
-                        columns: tmp_data[2]
-                      },
-                      axis: {
-                        x: {
-                          type: 'timeseries',
-                          tick: {
-                            format: '%d'
-                          }
-                        }
-                      }
-                  });
+                           bindto: '#chart_orange',
+                           data: {
+                             x: 'x',
+                             columns: tmp_data[2]
+                           }
+                         });
       
     });
 
