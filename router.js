@@ -108,46 +108,55 @@ myapp.controller('month_ctrl', function ($scope, $q, $http) {
 
 });
 
-myapp.controller('day_ctrl', function ($scope, $timeout, $window) {
-  var timeout;
-  $scope.$watch
-    (function () {
-        w = angular.element($window)
-        console.log(w.width());
-        w.bind('resize', function(){
-          if(timeout)$timeout.cancel(timeout);
-          timeout = $timeout(function(){
-            console.log('resize')
-            cal.destroy();
-            w = angular.element($window).width() / 73;
-            cal = new CalHeatMap();
-            cal.init({
-              itemSelector: "#daymap",
-              start: new Date(2014, 0),
-              domain: "year",
-              // domain: "day",
-              subDomain: "day",
-              // rowLimit: 7,
-              cellSize: w,
-              // subDomainTextFormat: "%d",
-              range: 1,
-              weekStartOnMonday: true,
-              // domainGutter: 10,
-              cellpadding: 4,
-              displayLegend: false,
-              // verticalOrientation: true
-              legendHorizontalPosition: "center",
-              nextSelector: "#domain-next",
-              previousSelector: "#domain-previous"
-            });
 
-          },900)
-          
-        });
-    });
+myapp.directive('resizable', function($window, $timeout) {
+        var timeout;
+        return function($scope) {
+          angular.element($window).bind("resize", function() {
+            if(timeout)$timeout.cancel(timeout);
+            timeout = $timeout(function(){
+              console.log('@@ 123');
+              // $scope.initializeWindowSize();
+              // $scope.$apply();
+              cal.destroy();
+              w = angular.element($window).width() / 73;
+              cal = new CalHeatMap();
+              cal.init({
+                itemSelector: "#daymap",
+                start: new Date(2014, 0),
+                domain: "year",
+                // domain: "day",
+                subDomain: "day",
+                // rowLimit: 7,
+                cellSize: w,
+                data: "./data/2014/total_heatmap.json",
+                // subDomainTextFormat: "%d",
+                range: 1,
+                weekStartOnMonday: true,
+                // domainGutter: 10,
+                // cellpadding: 4,
+                displayLegend: true,
+                // verticalOrientation: true
+                afterLoadData: parser,
+                legend: [110,120,121,122],
+                // legendColors: {
+                //   empty: "#ededed",
+                //   min: "#40ffd8",
+                //   max: "#f20013"
+                // },
+                legendHorizontalPosition: "center",
+                nextSelector: "#domain-next",
+                previousSelector: "#domain-previous"
+              });
+            },1000);
+          });
+        }
+      }
+);
 
+
+myapp.controller('day_ctrl', function ($scope, $window) {
   w = angular.element($window).width() / 73;
-  
   cal = new CalHeatMap();
   cal.init({
     itemSelector: "#daymap",
@@ -157,15 +166,32 @@ myapp.controller('day_ctrl', function ($scope, $timeout, $window) {
     subDomain: "day",
     // rowLimit: 7,
     cellSize: w,
+    data: "./data/2014/total_heatmap.json",
     // subDomainTextFormat: "%d",
     range: 1,
     weekStartOnMonday: true,
     // domainGutter: 10,
-    cellpadding: 4,
-    displayLegend: false,
+    // cellpadding: 4,
+    displayLegend: true,
     // verticalOrientation: true
+    afterLoadData: parser,
+    legend: [110,120,121,122],
+    // legendColors: {
+    //   empty: "#ededed",
+    //   min: "#40ffd8",
+    //   max: "#f20013"
+    // },
     legendHorizontalPosition: "center",
     nextSelector: "#domain-next",
     previousSelector: "#domain-previous"
   });
 });
+
+var parser = function(data) {
+  var stats = {};
+  for (var d in data) {
+    console.log(Math.round(Math.log(data[d])*10));
+    stats[d] = Math.round(Math.log(data[d])*10);
+  }
+  return stats;
+};
