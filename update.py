@@ -51,7 +51,7 @@ def data_extraction(filename):
     interpreter = PDFPageInterpreter(rsrcmgr, device)
 
     data_cols = {}
-    day, mon_to_sun, red_line_people, orange_line_people, total_people = [], [], [], [], []
+    date, day, red_line_people, orange_line_people, total_people = [], [], [], [], []
     for i, page in enumerate(doc.get_pages()):
         interpreter.process_page(page)
         layout = device.get_result()
@@ -60,11 +60,11 @@ def data_extraction(filename):
                 x = re.sub(r'\n\s*\n', '\n' , x.get_text()).strip()
                 first_value = str(x.split('\n')[0]).strip()
                 if first_value == '營運日':
-                    day = x.split('\n')
-                    # print '營運日', day
+                    date = x.split('\n')
+                    # print '營運日', date
                 if first_value == '星期':
-                    mon_to_sun = x.split('\n')
-                    # print '星期', mon_to_sun
+                    day = x.split('\n')
+                    # print '星期', day
                 if first_value == '紅線運量(人次)':
                     red_line_people = [v.strip() for v in x.replace(',','').split('\n')]
                     # print '紅線運量(人次)', red_line_people
@@ -74,8 +74,8 @@ def data_extraction(filename):
                 if first_value == '總運量(人次)':
                     total_people = [v.strip() for v in x.replace(',','').split('\n')]
                     # print '總運量(人次)', total_people
-    data_cols = {'day': day,
-                 'mon_to_sun': mon_to_sun,
+    data_cols = {'date': date,
+                 'day': day,
                  'red_line_people': red_line_people,
                  'orange_line_people': orange_line_people,
                  'total_people': total_people}
@@ -84,22 +84,22 @@ def data_extraction(filename):
 
 
 def save_json(table_data, file_name):
+    date = table_data['date'][1:]
     day = table_data['day'][1:]
-    mon_to_sun = table_data['mon_to_sun'][1:]
     red_line_people = table_data['red_line_people'][1:]
     orange_line_people = table_data['orange_line_people'][1:]
     total_people = table_data['total_people'][1:]
 
     data = []
     try:
-        for i, d in enumerate(day):
-            data.append({'day': day[i],
-                         'mon_to_sun': mon_to_sun[i],
+        for i, d in enumerate(date):
+            data.append({'date': date[i],
+                         'day': day[i],
                          'red_line_people': red_line_people[i],
                          'orange_line_people': orange_line_people[i],
                          'total_people': total_people[i]})
             # for testing
-            # print day[i], mon_to_sun[i], red_line_people[i],
+            # print date[i], day[i], red_line_people[i],
             #   orange_line_people[i], total_people[i]
     except Exception as e:
         print e

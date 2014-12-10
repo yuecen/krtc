@@ -8,17 +8,17 @@
         "a_orange_line_people": 40985, 
         "a_total_people": 167715, 
         "month": 1
-    },
+    }, 
     {
         "t_red_line_people": 3983449, 
-        "t_total_people": 5346222,
+        "t_total_people": 5346222, 
         "a_red_line_people": 142266, 
         "year": "2014", 
         "t_orange_line_people": 1362773, 
-        "a_orange_line_people": 48671, 
-        "a_total_people": 190937, 
+        "a_orange_line_people": 48670, 
+        "a_total_people": 190936, 
         "month": 2
-    },
+    }, 
     {
         "t_red_line_people": 3808930, 
         "t_total_people": 5069447, 
@@ -98,5 +98,15 @@
         "a_orange_line_people": 40644, 
         "a_total_people": 166668, 
         "month": 10
+    }, 
+    {
+        "t_red_line_people": 3807521, 
+        "t_total_people": 5019088, 
+        "a_red_line_people": 126917, 
+        "year": "2014", 
+        "t_orange_line_people": 1211567, 
+        "a_orange_line_people": 40385, 
+        "a_total_people": 167302, 
+        "month": 11
     }
 ]

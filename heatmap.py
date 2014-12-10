@@ -21,8 +21,12 @@ def timestamp_month(month, year, line):
     data = json.loads(open(path).read())
     tmp = {}
     for v in data:
-        tmp.update({int(time.mktime(datetime.datetime.strptime(v['day'], '%Y/%m/%d').timetuple())):
-        int(v[line + '_people'])})
+        if 'mon_to_sun' in v:
+            tmp.update({int(time.mktime(datetime.datetime.strptime(v['day'], '%Y/%m/%d').timetuple())):
+                        int(v[line + '_people'])})        
+        else:
+            tmp.update({int(time.mktime(datetime.datetime.strptime(v['date'], '%Y/%m/%d').timetuple())):
+                        int(v[line + '_people'])})
     return tmp
 
 
