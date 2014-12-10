@@ -10,7 +10,9 @@ def load_month_json(year):
     files = os.listdir(path)
     try:
         files.remove('average.json')
-        files.remove('heatmap.json')
+        files.remove('orange_line_heatmap.json')
+        files.remove('red_line_heatmap.json')
+        files.remove('total_heatmap.json')
     except ValueError:
         pass
     return sorted(files)

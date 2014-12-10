@@ -46,7 +46,7 @@ myapp.controller('month_ctrl', function ($scope, $q, $http) {
     year2011 = $http.get('./data/2011/average.json'),
     year2012 = $http.get('./data/2012/average.json'),
     year2013 = $http.get('./data/2013/average.json'),
-    year2014 = $http.get('./data/2014/average.json');
+    year2014 = $http.get('./data/2014/average.json?t=201411');
 
 
     $q.all([year2010, year2011, year2012, year2013, year2014]).then(function(result) {
@@ -115,9 +115,7 @@ myapp.directive('resizable', function($window, $timeout) {
           angular.element($window).bind("resize", function() {
             if(timeout)$timeout.cancel(timeout);
             timeout = $timeout(function(){
-              console.log('@@ 123');
-              // $scope.initializeWindowSize();
-              // $scope.$apply();
+              
               cal.destroy();
               w = angular.element($window).width() / 73;
               cal = new CalHeatMap();
@@ -129,7 +127,7 @@ myapp.directive('resizable', function($window, $timeout) {
                 subDomain: "day",
                 // rowLimit: 7,
                 cellSize: w,
-                data: "./data/2014/total_heatmap.json",
+                data: heatmap_data,
                 // subDomainTextFormat: "%d",
                 range: 1,
                 weekStartOnMonday: true,
@@ -139,11 +137,6 @@ myapp.directive('resizable', function($window, $timeout) {
                 // verticalOrientation: true
                 afterLoadData: parser,
                 legend: [110,120,121,122],
-                // legendColors: {
-                //   empty: "#ededed",
-                //   min: "#40ffd8",
-                //   max: "#f20013"
-                // },
                 legendHorizontalPosition: "center",
                 nextSelector: "#domain-next",
                 previousSelector: "#domain-previous"
@@ -154,43 +147,62 @@ myapp.directive('resizable', function($window, $timeout) {
       }
 );
 
+heatmap_data = {};
 
-myapp.controller('day_ctrl', function ($scope, $window) {
-  w = angular.element($window).width() / 73;
-  cal = new CalHeatMap();
-  cal.init({
-    itemSelector: "#daymap",
-    start: new Date(2014, 0),
-    domain: "year",
-    // domain: "day",
-    subDomain: "day",
-    // rowLimit: 7,
-    cellSize: w,
-    data: "./data/2014/total_heatmap.json",
-    // subDomainTextFormat: "%d",
-    range: 1,
-    weekStartOnMonday: true,
-    // domainGutter: 10,
-    // cellpadding: 4,
-    displayLegend: true,
-    // verticalOrientation: true
-    afterLoadData: parser,
-    legend: [110,120,121,122],
-    // legendColors: {
-    //   empty: "#ededed",
-    //   min: "#40ffd8",
-    //   max: "#f20013"
-    // },
-    legendHorizontalPosition: "center",
-    nextSelector: "#domain-next",
-    previousSelector: "#domain-previous"
+myapp.controller('day_ctrl', function ($scope, $http, $q, $window) {
+  // get data
+  year2010 = $http.get('./data/2010/total_heatmap.json'),
+  year2011 = $http.get('./data/2011/total_heatmap.json'),
+  year2012 = $http.get('./data/2012/total_heatmap.json'),
+  year2013 = $http.get('./data/2013/total_heatmap.json'),
+  year2014 = $http.get('./data/2014/total_heatmap.json');
+
+  tmp_data = {};
+
+  $q.all([year2010, year2011, year2012, year2013, year2014]).then(function(result) {
+    angular.forEach(result, function(response) {
+
+      tmp = response.data;
+      for(k in tmp) {
+        tmp_data[k] = tmp[k];
+      }
+    });
+    return tmp_data;
+  }).then(function draw_chart(tmp_data){
+    heatmap_data = tmp_data;
+    console.log(Object.keys(heatmap_data).length);
+    w = angular.element($window).width() / 73;
+    cal = new CalHeatMap();
+    cal.init({
+      itemSelector: "#daymap",
+      start: new Date(2014, 0),
+      domain: "year",
+      // domain: "day",
+      subDomain: "day",
+      // rowLimit: 7,
+      cellSize: w,
+      data: heatmap_data,
+      // subDomainTextFormat: "%d",
+      range: 1,
+      weekStartOnMonday: true,
+      // domainGutter: 10,
+      // cellpadding: 4,
+      displayLegend: true,
+      // verticalOrientation: true
+      afterLoadData: parser,
+      legend: [110,120,121,122],
+      legendHorizontalPosition: "center",
+      nextSelector: "#domain-next",
+      previousSelector: "#domain-previous"
+    });
   });
+
 });
 
 var parser = function(data) {
   var stats = {};
   for (var d in data) {
-    console.log(Math.round(Math.log(data[d])*10));
+    // console.log(Math.round(Math.log(data[d])*10));
     stats[d] = Math.round(Math.log(data[d])*10);
   }
   return stats;
