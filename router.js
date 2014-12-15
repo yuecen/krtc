@@ -111,7 +111,7 @@ myapp.controller('month_ctrl', function ($scope, $q, $http) {
 
 myapp.directive('resizable', function($window, $timeout) {
         var timeout;
-        return function($scope) {
+        return function() {
           angular.element($window).bind("resize", function() {
             if(timeout)$timeout.cancel(timeout);
             timeout = $timeout(function(){
@@ -123,30 +123,33 @@ myapp.directive('resizable', function($window, $timeout) {
                 itemSelector: "#daymap",
                 start: new Date(2014, 0),
                 domain: "year",
-                // domain: "day",
                 subDomain: "day",
-                // rowLimit: 7,
                 cellSize: w,
                 data: heatmap_data,
-                // subDomainTextFormat: "%d",
                 range: 1,
                 weekStartOnMonday: true,
                 // domainGutter: 10,
                 // cellpadding: 4,
                 displayLegend: true,
                 // verticalOrientation: true
+                tooltip: true,
+                subDomainTitleFormat: {
+                    empty: "No issues on {date}",
+                    filled: "流量：{people} <BR>日期：{date}"
+                }, 
                 afterLoadData: parser,
-                legend: [110,120,121,122],
+                legend: [108,111,115,118,120,122],
                 legendHorizontalPosition: "center",
                 nextSelector: "#domain-next",
-                previousSelector: "#domain-previous"
+                previousSelector: "#domain-previous",
+                tooltip: true
               });
             },1000);
           });
         }
       }
 );
-
+org_data = {}; // 要把原始的資料補上去 tooltip
 heatmap_data = {};
 
 myapp.controller('day_ctrl', function ($scope, $http, $q, $window) {
@@ -169,6 +172,7 @@ myapp.controller('day_ctrl', function ($scope, $http, $q, $window) {
     });
     return tmp_data;
   }).then(function draw_chart(tmp_data){
+    org_data = tmp_data;
     heatmap_data = tmp_data;
     console.log(Object.keys(heatmap_data).length);
     w = angular.element($window).width() / 73;
@@ -177,12 +181,9 @@ myapp.controller('day_ctrl', function ($scope, $http, $q, $window) {
       itemSelector: "#daymap",
       start: new Date(2014, 0),
       domain: "year",
-      // domain: "day",
       subDomain: "day",
-      // rowLimit: 7,
       cellSize: w,
       data: heatmap_data,
-      // subDomainTextFormat: "%d",
       range: 1,
       weekStartOnMonday: true,
       // domainGutter: 10,
@@ -190,10 +191,25 @@ myapp.controller('day_ctrl', function ($scope, $http, $q, $window) {
       displayLegend: true,
       // verticalOrientation: true
       afterLoadData: parser,
-      legend: [110,120,121,122],
+      legend: [108,111,115,118,120,122],
+      // legend: [160,165,170,175],
       legendHorizontalPosition: "center",
       nextSelector: "#domain-next",
-      previousSelector: "#domain-previous"
+      previousSelector: "#domain-previous",
+      tooltip: true,
+      subDomainTitleFormat: {
+          empty: "No issues on {date}",
+          filled: "流量：{people} <BR>日期：{date}"
+      }, 
+      // subDomainDateFormat: function(date) {
+      //   // var format = d3.time.format("%Y-%m-%d");
+      //   // format.parse(date); // returns a Date
+      //   // format(new Date(2011, 0, 1));
+      //   console.log(typeof(date));
+      //   aaa = date;
+      //   return date;
+      // }
+    
     });
   });
 
@@ -202,8 +218,8 @@ myapp.controller('day_ctrl', function ($scope, $http, $q, $window) {
 var parser = function(data) {
   var stats = {};
   for (var d in data) {
-    // console.log(Math.round(Math.log(data[d])*10));
-    stats[d] = Math.round(Math.log(data[d])*10);
+    stats[d] = Math.round(Math.log(data[d])*10) + 
+              (data[d]/(Math.pow(10, String(data[d]).length)));
   }
   return stats;
 };

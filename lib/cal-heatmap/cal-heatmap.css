@@ -59,23 +59,23 @@ Remove comment to apply this style to date with value equal to 0
 
 .q1
 {
-	background-color: #dae289;
-	fill: #dae289
+	background-color: #e2b689;
+	fill: #e2b689
 }
 
 .q2
 {
-	background-color: #cedb9c;
-	fill: #9cc069
+	background-color: #eae350;
+	fill: #eae350
 }
 
 .q3
 {
-	background-color: #b5cf6b;
-	fill: #669d45
+	background-color: #e9f09f;
+	fill: #e9f09f
 }
 
-.q4
+/*.q4
 {
 	background-color: #637939;
 	fill: #637939
@@ -85,6 +85,34 @@ Remove comment to apply this style to date with value equal to 0
 {
 	background-color: #3b6427;
 	fill: #3b6427
+}*/
+
+/*
+add by YC
+*/
+
+.q4
+{
+	background-color: #c3dfc9;
+	fill: #c3dfc9
+}
+
+.q5
+{
+	background-color: #a5cfaf;
+	fill: #a5cfaf
+}
+
+.q6
+{
+	background-color: #87bf94;
+	fill: #87bf94
+}
+
+.q7
+{
+	background-color: #6aaf7a;
+	fill: #6aaf7a
 }
 
 rect.highlight
