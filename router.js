@@ -30,11 +30,7 @@ myapp.config(function ($routeProvider) {
 myapp.controller('ListCtrl', function ($scope) {
 });
 
-myapp.controller('month_ctrl', function ($scope, $q, $http) {
-
-    $scope.getjsondata = function() {
-        return $scope.jsondata;
-    };
+myapp.controller('month_ctrl', function ($q, $http) {
 
     title = ['x', '01', '02', '03', '04', '05', '06',
              '07', '08', '09', '10', '11', '12'];
@@ -103,9 +99,7 @@ myapp.controller('month_ctrl', function ($scope, $q, $http) {
                              columns: tmp_data[2]
                            }
                          });
-      
     });
-
 });
 
 
@@ -128,31 +122,31 @@ myapp.directive('resizable', function($window, $timeout) {
                 data: heatmap_data,
                 range: 1,
                 weekStartOnMonday: true,
-                // domainGutter: 10,
-                // cellpadding: 4,
                 displayLegend: true,
-                // verticalOrientation: true
-                tooltip: true,
-                subDomainTitleFormat: {
-                    empty: "No issues on {date}",
-                    filled: "流量：{people} <BR>日期：{date}"
-                }, 
                 afterLoadData: parser,
                 legend: [108,111,115,118,120,122],
                 legendHorizontalPosition: "center",
                 nextSelector: "#domain-next",
                 previousSelector: "#domain-previous",
-                tooltip: true
+                tooltip: true,
+                subDomainTitleFormat: {
+                    empty: "沒有數據, {date}",
+                    filled: "流量：{people} <BR>日期：{date}"
+                },
+                subDomainDateFormat: function(date) {
+                  return date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate();
+                }
               });
             },1000);
           });
         }
       }
 );
-org_data = {}; // 要把原始的資料補上去 tooltip
+
+
 heatmap_data = {};
 
-myapp.controller('day_ctrl', function ($scope, $http, $q, $window) {
+myapp.controller('day_ctrl', function ($http, $q, $window) {
   // get data
   year2010 = $http.get('./data/2010/total_heatmap.json'),
   year2011 = $http.get('./data/2011/total_heatmap.json'),
@@ -172,7 +166,6 @@ myapp.controller('day_ctrl', function ($scope, $http, $q, $window) {
     });
     return tmp_data;
   }).then(function draw_chart(tmp_data){
-    org_data = tmp_data;
     heatmap_data = tmp_data;
     console.log(Object.keys(heatmap_data).length);
     w = angular.element($window).width() / 73;
@@ -186,40 +179,31 @@ myapp.controller('day_ctrl', function ($scope, $http, $q, $window) {
       data: heatmap_data,
       range: 1,
       weekStartOnMonday: true,
-      // domainGutter: 10,
-      // cellpadding: 4,
       displayLegend: true,
-      // verticalOrientation: true
       afterLoadData: parser,
       legend: [108,111,115,118,120,122],
-      // legend: [160,165,170,175],
       legendHorizontalPosition: "center",
       nextSelector: "#domain-next",
       previousSelector: "#domain-previous",
       tooltip: true,
       subDomainTitleFormat: {
-          empty: "No issues on {date}",
+          empty: "沒有數據, {date}",
           filled: "流量：{people} <BR>日期：{date}"
       }, 
-      // subDomainDateFormat: function(date) {
-      //   // var format = d3.time.format("%Y-%m-%d");
-      //   // format.parse(date); // returns a Date
-      //   // format(new Date(2011, 0, 1));
-      //   console.log(typeof(date));
-      //   aaa = date;
-      //   return date;
-      // }
-    
+      subDomainDateFormat: function(date) {
+        return date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate();
+      }
     });
   });
-
 });
+
 
 var parser = function(data) {
   var stats = {};
   for (var d in data) {
     stats[d] = Math.round(Math.log(data[d])*10) + 
-              (data[d]/(Math.pow(10, String(data[d]).length)));
+                parseFloat((data[d]/Math.pow(10, String(data[d]).length))
+                            .toFixed(String(data[d]).length).substring(1) + '1');
   }
   return stats;
 };
