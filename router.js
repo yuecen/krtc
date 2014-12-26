@@ -131,10 +131,15 @@ myapp.directive('resizable', function($window, $timeout) {
                 tooltip: true,
                 subDomainTitleFormat: {
                     empty: "沒有數據, {date}",
-                    filled: "流量：{people} <BR>日期：{date}"
+                    filled: "流量：{people} <BR>日期：{date} <BR><font color=#ae5fae>{holiday_name}</font>"
                 },
                 subDomainDateFormat: function(date) {
                   return date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate();
+                },
+                subDomainTextFormat: function(date ,value) {
+                  if (holiday[date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate()] != null) {
+                    return "休";  
+                  }
                 }
               });
             },1000);
@@ -167,7 +172,6 @@ myapp.controller('day_ctrl', function ($http, $q, $window) {
     return tmp_data;
   }).then(function draw_chart(tmp_data){
     heatmap_data = tmp_data;
-    console.log(Object.keys(heatmap_data).length);
     w = angular.element($window).width() / 73;
     cal = new CalHeatMap();
     cal.init({
@@ -187,11 +191,16 @@ myapp.controller('day_ctrl', function ($http, $q, $window) {
       previousSelector: "#domain-previous",
       tooltip: true,
       subDomainTitleFormat: {
-          empty: "沒有數據, {date}",
-          filled: "流量：{people} <BR>日期：{date}"
-      }, 
+        empty: "沒有數據, {date}",
+        filled: "流量：{people} <BR>日期：{date} <BR><font color=#ae5fae>{holiday_name}</font>"
+      },
       subDomainDateFormat: function(date) {
         return date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate();
+      },
+      subDomainTextFormat: function(date ,value) {
+        if (holiday[date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate()] != null) {
+          return "休";  
+        }
       }
     });
   });
