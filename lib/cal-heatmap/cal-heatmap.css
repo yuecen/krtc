@@ -33,9 +33,9 @@
 }
 
 .subdomain-text {
-	font-size: 8px;
-	font-weight: bold;
-	fill: #ae5fae;
+	font-size: 7px;
+	/*font-weight: bold;*/
+	fill: #b51c7c;
 	pointer-events: none
 }
 
