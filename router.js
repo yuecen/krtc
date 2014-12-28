@@ -131,7 +131,7 @@ myapp.directive('resizable', function($window, $timeout) {
                 tooltip: true,
                 subDomainTitleFormat: {
                     empty: "沒有數據, {date}",
-                    filled: "流量：{people} <BR>日期：{date} <BR><font color=#4486c3>{holiday_name}</font>"
+                    filled: "流量：{people} <BR>日期：{date} <BR><font color=#ed2345>{holiday_name}</font>"
                 },
                 subDomainDateFormat: function(date) {
                   return date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate();
@@ -192,7 +192,7 @@ myapp.controller('day_ctrl', function ($http, $q, $window) {
       tooltip: true,
       subDomainTitleFormat: {
         empty: "沒有數據, {date}",
-        filled: "流量：{people} <BR>日期：{date} <BR><font color=#4486c3>{holiday_name}</font>"
+        filled: "流量：{people} <BR>日期：{date} <BR><font color=#ed2345>{holiday_name}</font>"
       },
       subDomainDateFormat: function(date) {
         return date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate();
