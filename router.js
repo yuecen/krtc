@@ -42,7 +42,7 @@ myapp.controller('month_ctrl', function ($q, $http) {
     year2011 = $http.get('./data/2011/average.json'),
     year2012 = $http.get('./data/2012/average.json'),
     year2013 = $http.get('./data/2013/average.json'),
-    year2014 = $http.get('./data/2014/average.json?t=201411');
+    year2014 = $http.get('./data/2014/average.json?t=201412');
 
 
     $q.all([year2010, year2011, year2012, year2013, year2014]).then(function(result) {
@@ -131,14 +131,14 @@ myapp.directive('resizable', function($window, $timeout) {
                 tooltip: true,
                 subDomainTitleFormat: {
                     empty: "沒有數據, {date}",
-                    filled: "流量：{people} <BR>日期：{date} <BR><font color=#ed2345>{holiday_name}</font>"
+                    filled: "流量：{people} <BR>日期：{date} <BR><font color=#5a15c7>{holiday_name}</font>"
                 },
                 subDomainDateFormat: function(date) {
                   return date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate();
                 },
                 subDomainTextFormat: function(date ,value) {
                   if (holiday[date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate()] != null) {
-                    return "☆";  
+                    return "•";  
                   }
                 }
               });
@@ -192,14 +192,14 @@ myapp.controller('day_ctrl', function ($http, $q, $window) {
       tooltip: true,
       subDomainTitleFormat: {
         empty: "沒有數據, {date}",
-        filled: "流量：{people} <BR>日期：{date} <BR><font color=#ed2345>{holiday_name}</font>"
+        filled: "流量：{people} <BR>日期：{date} <BR><font color=#5a15c7>{holiday_name}</font>"
       },
       subDomainDateFormat: function(date) {
         return date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate();
       },
       subDomainTextFormat: function(date ,value) {
         if (holiday[date.getFullYear() + "/" + (date.getMonth() + 1) + '/' + date.getDate()] != null) {
-          return "☆";  
+          return "•";  
         }
       }
     });
