@@ -42,10 +42,11 @@ myapp.controller('month_ctrl', function ($q, $http) {
     year2011 = $http.get('./data/2011/average.json'),
     year2012 = $http.get('./data/2012/average.json'),
     year2013 = $http.get('./data/2013/average.json'),
-    year2014 = $http.get('./data/2014/average.json?t=201412');
+    year2014 = $http.get('./data/2014/average.json');
+    year2015 = $http.get('./data/2015/average.json');
 
 
-    $q.all([year2010, year2011, year2012, year2013, year2014]).then(function(result) {
+    $q.all([year2010, year2011, year2012, year2013, year2014, year2015]).then(function(result) {
       angular.forEach(result, function(response) {
 
         tmp = response.data;
@@ -115,7 +116,7 @@ myapp.directive('resizable', function($window, $timeout) {
               cal = new CalHeatMap();
               cal.init({
                 itemSelector: "#daymap",
-                start: new Date(2014, 0),
+                start: new Date(2015, 0),
                 domain: "year",
                 subDomain: "day",
                 cellSize: w,
@@ -158,10 +159,11 @@ myapp.controller('day_ctrl', function ($http, $q, $window) {
   year2012 = $http.get('./data/2012/total_heatmap.json'),
   year2013 = $http.get('./data/2013/total_heatmap.json'),
   year2014 = $http.get('./data/2014/total_heatmap.json');
+  year2015 = $http.get('./data/2015/total_heatmap.json');
 
   tmp_data = {};
 
-  $q.all([year2010, year2011, year2012, year2013, year2014]).then(function(result) {
+  $q.all([year2010, year2011, year2012, year2013, year2014, year2015]).then(function(result) {
     angular.forEach(result, function(response) {
 
       tmp = response.data;
@@ -176,7 +178,7 @@ myapp.controller('day_ctrl', function ($http, $q, $window) {
     cal = new CalHeatMap();
     cal.init({
       itemSelector: "#daymap",
-      start: new Date(2014, 0),
+      start: new Date(2015, 0),
       domain: "year",
       subDomain: "day",
       cellSize: w,
