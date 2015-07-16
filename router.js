@@ -56,7 +56,7 @@ myapp.controller('month_ctrl', function ($q, $http) {
     year2012 = $http.get('./data/2012/average.json'),
     year2013 = $http.get('./data/2013/average.json'),
     year2014 = $http.get('./data/2014/average.json');
-    year2015 = $http.get('./data/2015/average.json');
+    year2015 = $http.get('./data/2015/average.json?update=1');
 
 
     $q.all([year2010, year2011, year2012, year2013, year2014, year2015]).then(function(result) {
