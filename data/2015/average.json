@@ -58,5 +58,35 @@
         "a_orange_line_people": 37906, 
         "a_total_people": 159110, 
         "month": 6
+    }, 
+    {
+        "t_red_line_people": 3904524, 
+        "t_total_people": 5208462, 
+        "a_red_line_people": 125952, 
+        "year": "2015", 
+        "t_orange_line_people": 1303938, 
+        "a_orange_line_people": 42062, 
+        "a_total_people": 168014, 
+        "month": 7
+    }, 
+    {
+        "t_red_line_people": 3845952, 
+        "t_total_people": 5101326, 
+        "a_red_line_people": 124062, 
+        "year": "2015", 
+        "t_orange_line_people": 1255374, 
+        "a_orange_line_people": 40495, 
+        "a_total_people": 164558, 
+        "month": 8
+    }, 
+    {
+        "t_red_line_people": 3622783, 
+        "t_total_people": 4760000, 
+        "a_red_line_people": 120759, 
+        "year": "2015", 
+        "t_orange_line_people": 1137218, 
+        "a_orange_line_people": 37907, 
+        "a_total_people": 158666, 
+        "month": 9
     }
 ]
