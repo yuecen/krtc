@@ -51,15 +51,16 @@ myapp.controller('month_ctrl', function ($q, $http) {
     chart_data_red = [title];
     chart_data_orange = [title];
     
-    year2010 = $http.get('./data/2010/average.json'),
-    year2011 = $http.get('./data/2011/average.json'),
+    //year2010 = $http.get('./data/2010/average.json'),
+    //year2011 = $http.get('./data/2011/average.json'),
     year2012 = $http.get('./data/2012/average.json'),
     year2013 = $http.get('./data/2013/average.json'),
     year2014 = $http.get('./data/2014/average.json');
-    year2015 = $http.get('./data/2015/average.json?update=1');
+    year2015 = $http.get('./data/2015/average.json');
+    year2016 = $http.get('./data/2016/average.json');
 
 
-    $q.all([year2010, year2011, year2012, year2013, year2014, year2015]).then(function(result) {
+    $q.all([year2012, year2013, year2014, year2015, year2016]).then(function(result) {
       angular.forEach(result, function(response) {
 
         tmp = response.data;
@@ -129,7 +130,7 @@ myapp.directive('resizable', function($window, $timeout) {
               cal = new CalHeatMap();
               cal.init({
                 itemSelector: "#daymap",
-                start: new Date(2015, 0),
+                start: new Date(2016, 0),
                 domain: "year",
                 subDomain: "day",
                 cellSize: w,
@@ -167,16 +168,17 @@ heatmap_data = {};
 
 myapp.controller('day_ctrl', function ($http, $q, $window) {
   // get data
-  year2010 = $http.get('./data/2010/total_heatmap.json'),
-  year2011 = $http.get('./data/2011/total_heatmap.json'),
+  //year2010 = $http.get('./data/2010/total_heatmap.json'),
+  //year2011 = $http.get('./data/2011/total_heatmap.json'),
   year2012 = $http.get('./data/2012/total_heatmap.json'),
   year2013 = $http.get('./data/2013/total_heatmap.json'),
   year2014 = $http.get('./data/2014/total_heatmap.json');
   year2015 = $http.get('./data/2015/total_heatmap.json');
+  year2016 = $http.get('./data/2016/total_heatmap.json');
 
   tmp_data = {};
 
-  $q.all([year2010, year2011, year2012, year2013, year2014, year2015]).then(function(result) {
+  $q.all([year2012, year2013, year2014, year2015, year2016]).then(function(result) {
     angular.forEach(result, function(response) {
 
       tmp = response.data;
@@ -191,7 +193,7 @@ myapp.controller('day_ctrl', function ($http, $q, $window) {
     cal = new CalHeatMap();
     cal.init({
       itemSelector: "#daymap",
-      start: new Date(2015, 0),
+      start: new Date(2016, 0),
       domain: "year",
       subDomain: "day",
       cellSize: w,
